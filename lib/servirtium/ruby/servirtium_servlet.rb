@@ -21,9 +21,9 @@ module Servirtium
         response.status = 200
         response.body = default_response
 
-        record_new_response ServirtiumDemo.example, request if ServirtiumDemo.record
+        record_new_response Servirtium::Ruby.example, request if Servirtium::Ruby.record
 
-        playback_file = find_playback_file_for ServirtiumDemo.example
+        playback_file = find_playback_file_for Servirtium::Ruby.example
         response.body = retrieve_body_from playback_file if playback_file
 
         response
@@ -34,12 +34,12 @@ module Servirtium
       private
 
       def default_response
-        "No playback file was found for #{ServirtiumDemo.example}"
+        "No playback file was found for #{Servirtium::Ruby.example}"
       end
 
       def record_new_response(example_path, request)
         filepath = playback_filepath example_path
-        f = if ServirtiumDemo.interaction == 0
+        f = if Servirtium::Ruby.interaction == 0
               File.new(filepath, 'w')
             else
               File.new(filepath, 'a')
@@ -63,8 +63,8 @@ module Servirtium
         markdown_file = File.read(playback_file)
         doc = RDoc::Markdown.parse(markdown_file)
         parse_responses(doc)
-        response = @responses[ServirtiumDemo.interaction].parts.first
-        ServirtiumDemo.interaction = ServirtiumDemo.interaction + 1
+        response = @responses[Servirtium::Ruby.interaction].parts.first
+        Servirtium::Ruby.interaction = Servirtium::Ruby.interaction + 1
         response
       rescue StandardError => _e
         raise
@@ -96,7 +96,7 @@ module Servirtium
       end
 
       def make_request(request)
-        url = ServirtiumDemo.domain
+        url = Servirtium::Ruby.domain
         connection = Faraday.new url do |conn|
           conn.response :xml, content_type: /\bxml$/
           conn.adapter Faraday.default_adapter
@@ -105,7 +105,7 @@ module Servirtium
       end
 
       def build_interaction_from(request)
-        "## Interaction #{ServirtiumDemo.interaction}: #{request.request_method} #{request.path}"
+        "## Interaction #{Servirtium::Ruby.interaction}: #{request.request_method} #{request.path}"
       end
 
       def build_request_headers_from(request)
@@ -113,7 +113,7 @@ module Servirtium
         ### Request headers recorded for playback:
 
         ```
-        Host: #{ServirtiumDemo.domain.split('//').last}
+        Host: #{Servirtium::Ruby.domain.split('//').last}
         User-Agent: #{request.header['user-agent']}
         Accept-Encoding: #{request.header['accept-encoding']}
         Accept: #{request.header['accept']}

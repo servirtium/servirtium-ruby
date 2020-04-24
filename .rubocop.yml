@@ -1,9 +1,21 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - bin/**/*
+
 Layout/LineLength:
   Max: 100
 
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+
+Metrics/ClassLength:
+  Exclude:
+    - lib/servirtium/ruby/servirtium_servlet.rb
+
+Style/Documentation:
+  Enabled: false
 
 Style/GlobalVars:
   Exclude:

@@ -39,7 +39,7 @@ module Servirtium
 
       def record_new_response(example_path, request)
         filepath = playback_filepath example_path
-        f = if Servirtium::Ruby.interaction == 0
+        f = if Servirtium::Ruby.interaction.zero?
               File.new(filepath, 'w')
             else
               File.new(filepath, 'a')
@@ -82,15 +82,15 @@ module Servirtium
       def build_recording(request)
         response = make_request(request)
         recording = <<~RECORDING
-        #{build_interaction_from request}
+          #{build_interaction_from request}
 
-        #{build_request_headers_from request}
+          #{build_request_headers_from request}
 
-        #{build_request_body}
+          #{build_request_body}
 
-        #{build_response_headers_from response}
+          #{build_response_headers_from response}
 
-        #{build_response_body_from response}
+          #{build_response_body_from response}
         RECORDING
         recording
       end
@@ -110,27 +110,27 @@ module Servirtium
 
       def build_request_headers_from(request)
         headers = <<~HEADERS
-        ### Request headers recorded for playback:
+          ### Request headers recorded for playback:
 
-        ```
-        Host: #{Servirtium::Ruby.domain.split('//').last}
-        User-Agent: Servirtium
-        Accept-Encoding: #{request.header['accept-encoding']}
-        Accept: #{request.header['accept']}
-        Connection: #{request.header['connection']}
-        ```
+          ```
+          Host: #{Servirtium::Ruby.domain.split('//').last}
+          User-Agent: Servirtium
+          Accept-Encoding: #{request.header['accept-encoding']}
+          Accept: #{request.header['accept']}
+          Connection: #{request.header['connection']}
+          ```
         HEADERS
         headers
       end
 
       def build_request_body
         body = <<~BODY
-        ### Request body recorded for playback ():
+          ### Request body recorded for playback ():
 
-        ```
+          ```
 
 
-        ```
+          ```
         BODY
         body
       end
@@ -139,21 +139,21 @@ module Servirtium
       # rubocop:disable Metrics/MethodLength
       def build_response_headers_from(response)
         headers = <<~HEADERS
-        ### Response headers recorded for playback:
+          ### Response headers recorded for playback:
 
-        ```
-        Content-Type: #{response.headers['content-type']}
-        Connection: #{response.headers['connection']}
-        Access-Control-Allow-Origin: #{response.headers['access-control-allow-origin']}
-        Access-Control-Allow-Headers: #{response.headers['access-control-allow-headers']}
-        Access-Control-Allow-Methods: #{response.headers['access-control-allow-methods']}
-        Strict-Transport-Security: #{response.headers['strict-transpor-security']}
-        Content-Security-Policy: #{response.headers['content-security-policy']}
-        Cache-Control: #{response.headers['cache-control']}
-        Secure: #{response.headers['secure']}
-        HttpOnly: #{response.headers['httponly']}
-        Transfer-Encoding: #{response.headers['transfer-encoding']}
-        ```
+          ```
+          Content-Type: #{response.headers['content-type']}
+          Connection: #{response.headers['connection']}
+          Access-Control-Allow-Origin: #{response.headers['access-control-allow-origin']}
+          Access-Control-Allow-Headers: #{response.headers['access-control-allow-headers']}
+          Access-Control-Allow-Methods: #{response.headers['access-control-allow-methods']}
+          Strict-Transport-Security: #{response.headers['strict-transpor-security']}
+          Content-Security-Policy: #{response.headers['content-security-policy']}
+          Cache-Control: #{response.headers['cache-control']}
+          Secure: #{response.headers['secure']}
+          HttpOnly: #{response.headers['httponly']}
+          Transfer-Encoding: #{response.headers['transfer-encoding']}
+          ```
         HEADERS
         headers
       end
@@ -169,11 +169,11 @@ module Servirtium
                         end
 
         body = <<~BODY
-        ### Response body recorded for playback (200: application/xml):
+          ### Response body recorded for playback (200: application/xml):
 
-        ```
-        #{response_body}
-        ```
+          ```
+          #{response_body}
+          ```
         BODY
         body
       end

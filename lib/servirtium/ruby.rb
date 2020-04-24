@@ -1,4 +1,6 @@
-require "servirtium/ruby/version"
+# frozen_string_literal: true
+
+require 'servirtium/ruby/version'
 
 module Servirtium
   module Ruby

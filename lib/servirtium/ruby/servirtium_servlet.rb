@@ -114,7 +114,7 @@ module Servirtium
 
         ```
         Host: #{Servirtium::Ruby.domain.split('//').last}
-        User-Agent: #{request.header['user-agent']}
+        User-Agent: Servirtium
         Accept-Encoding: #{request.header['accept-encoding']}
         Accept: #{request.header['accept']}
         Connection: #{request.header['connection']}

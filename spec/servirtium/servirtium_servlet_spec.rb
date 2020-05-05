@@ -7,11 +7,11 @@ RSpec.describe Servirtium::ServirtiumServlet do
 
   let(:request) { WEBrick::HTTPRequest.new WEBrick::Config::HTTP }
   let(:response) { WEBrick::HTTPResponse.new WEBrick::Config::HTTP }
-  let!(:server) { class_double("Servirtium::DemoServer") }
+  let!(:server) { class_double('Servirtium::DemoServer') }
 
   it 'responds with a default response' do
-    Servirtium::example = 'test_example'
-    Servirtium::interaction = 0
+    Servirtium.example = 'test_example'
+    Servirtium.interaction = 0
     expect(server).to receive(:[]).with(:Logger)
     servlet = Servirtium::ServirtiumServlet.new(server)
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/servirtium/ruby/version'
+require_relative 'lib/servirtium/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'servirtium-ruby'
-  spec.version = Servirtium::Ruby::VERSION
+  spec.name = 'servirtium'
+  spec.version = Servirtium::VERSION
   spec.authors = ['Rob Park']
   spec.email = ['robert.park@4legssoftware.com']
 
@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+
+  spec.add_dependency 'gyoku'
 end

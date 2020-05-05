@@ -12,7 +12,7 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Exclude:
-    - lib/servirtium/ruby/servirtium_servlet.rb
+    - lib/servirtium/servirtium_servlet.rb
 
 Style/Documentation:
   Enabled: false

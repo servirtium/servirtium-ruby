@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require 'faraday'
+require 'faraday_middleware'
 require 'gyoku'
 require 'rdoc'
 require 'webrick'
 
 module Servirtium
   class << self
+    attr_accessor :domain
     attr_accessor :example
     attr_accessor :interaction
     attr_accessor :record

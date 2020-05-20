@@ -142,6 +142,11 @@ trying to make something for the same ecosystem without a commercial relation on
 After checking out the repo, run `bundle install` to install dependencies. 
 Then, run `rake` to run Rubocop and the tests. 
 
+There is also a "Technology Compatibility Kit" (TCK) that can be found at: 
+https://github.com/servirtium/demo-ruby-climate-tck
+
+For more on TCKs, check out: https://paulhammant.com/2019/06/14/tcks-and-servirtium/
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at 

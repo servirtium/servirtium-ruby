@@ -12,6 +12,8 @@ for recorded HTTP conversations, which aids readability allows for diffing
 to quickly determine if contracts are broken. That last is an important aspect
 when Service Virtualization is part of a **Technology Compatibility Kit**
 
+Version [0.1.0](lib/servirtium/version.rb): This is very much an alpha version of this gem. 
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -69,37 +71,32 @@ the replayer for that recorded conversation.
 
 ## Implementation Limitations
 
-1. Java only for now, though usable in the broader JVM ecosystem. Ports to other languages 
-is a direction I'd like to go in. Perhaps a rewrite in Rust, and then bindings back to Java, C#, 
-Python, Ruby and NodeJs would be a more sustainable route long term.
+1. The recorder **isn't very good at handling parallel requests**. Most of the 
+   things you want to test will be serial (and  short) but if your client is a browser, 
+   then you should half expect for parallelized operations.
 
-2. The recorder **isn't very good at handling parallel requests**. Most of the 
-things you want to test will be serial (and  short) but if your client is a browser, 
-then you should half expect for parallelized operations.
+1. Servirtium can't yet listen on over HTTPS.
 
-3. Servirtium can't yet listen on over HTTPS.
-
-4. Servirtium can't yet function as a HTTP Proxy server. It must be a "man in the middle", 
-meaning you have to be able to override the endpoints of services during JUnit/TestNG invocation 
-in order to be able to record them (and play them back).
+1. Servirtium can't yet function as a HTTP Proxy server. It must be a "man in the middle", 
+   meaning you have to be able to override the endpoints of services during test harness invocation 
+   in order to be able to record them (and play them back).
  
-5. Some server technologies (like Amazon S3) sign payloads in a way that breaks for middle-man 
-deployments. See [S3](https://github.com/paul-hammant/servirtium/wiki/S3).
- 
+1. Some server technologies (like Amazon S3) sign payloads in a way that breaks for middle-man 
+   deployments. See [S3](https://github.com/paul-hammant/servirtium/wiki/S3).
 
-# Notable examples of use
+## Notable examples of use
 
-## SvnMerkleizer project - emulation of Subversion in tests
+### SvnMerkleizer project - emulation of Subversion in tests
 
 [Read more about two seprate uses of Servirtium for this project](docs/SvnMerkleizer_More_Info.md)
 
-## Climate API demo
+### Climate API demo
 
 The World Bank's Climate Data service turned into a Java library with Servirtium tests: 
 https://github.com/paul-hammant/climate-data-tck. Direct, record and playback modes of 
 operation for the same tests.
 
-## Todobackend record and playback
+### Todobackend record and playback
 
 [TodobackendDotComServiceRecording.md](https://github.com/paul-hammant/servirtium/blob/master/src/test/resources/TodobackendDotComServiceRecording.md) 
 is a recording of the Mocha test site of "TodoBackend.com" against a real Ruby/Sinatra/Heroku 
@@ -117,23 +114,10 @@ payload that changes every time you run the test suite. It gets one third of the
 
 **Note: this limitation is being resolved, presently**
 
-## Readiness for general industry by lovers of test automation?
-
-A pre 1.0 release is used by a startup Paul is involved with for multiple unrelated external services.
-
 ## Servirtium's default listening port
 
 As per [the default port calculator](https://paul-hammant.github.io/default-port-calculator/#servirtium) 
 for 'servirtium': 61417 
-
-# Further Wiki Documentation
-
-[Servirtium in Technology Compatibility Kits](../../wiki/Servirtium-in-Technology-Compatibility-Kits)
-[Adding-notes-to-a-recording](../../wiki/Adding-notes-to-a-recording)
-
-# Building Servirtium
-
-
 
 ## License
 

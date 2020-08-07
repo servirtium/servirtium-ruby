@@ -16,7 +16,7 @@ RSpec.describe Servirtium::ServirtiumServlet do
       servlet = Servirtium::ServirtiumServlet.new(server)
 
       expect(servlet).not_to be nil
-      expect(servlet.do_GET(request, response)).not_to be nil
+      expect(servlet.service(request, response)).not_to be nil
       expect(response.status).to eq 200
     end
   end
@@ -83,7 +83,7 @@ RSpec.describe Servirtium::ServirtiumServlet do
       expect(server).to receive(:[]).with(:Logger)
 
       expect(request).to receive(:path).at_least(:once).and_return 'annualavg/pr/1980/1999/egy.xml'
-      expect(request).to receive(:request_method).and_return 'GET'
+      expect(request).to receive(:request_method).at_least(:once).and_return 'GET'
       expect(request).to receive(:header).at_least(:once).and_return header
 
       expect(response).to receive(:headers).at_least(:once).and_return headers
@@ -96,7 +96,7 @@ RSpec.describe Servirtium::ServirtiumServlet do
       servlet = Servirtium::ServirtiumServlet.new(server)
 
       expect(servlet).not_to be nil
-      expect(servlet.do_GET(request, response)).not_to be nil
+      expect(servlet.service(request, response)).not_to be nil
       expect(response.status).to eq 200
     end
   end

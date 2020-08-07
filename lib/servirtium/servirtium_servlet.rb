@@ -17,7 +17,8 @@ module Servirtium
 
   class ServirtiumServlet < WEBrick::HTTPServlet::AbstractServlet
     # rubocop:disable Naming/MethodName
-    def do_GET(request, response)
+    def service(request, response)
+
       @responses ||= []
 
       # TODO cater for JSON and other non-XML types
@@ -102,12 +103,15 @@ module Servirtium
     end
 
     def make_request(request)
+
+      method_name = request.request_method.gsub(/-/, "_").downcase
+
       url = Servirtium.domain
       connection = Faraday.new url do |conn|
         conn.response :xml, content_type: /\bxml$/
         conn.adapter Faraday.default_adapter
       end
-      connection.get(request.path)
+      connection.send(method_name, *request.path)
     end
 
     def build_interaction_from(request)

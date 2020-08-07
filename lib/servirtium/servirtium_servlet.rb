@@ -12,6 +12,7 @@ module Servirtium
     attr_accessor :example
     attr_accessor :interaction
     attr_accessor :record
+    attr_accessor :pretty_print
   end
 
   class ServirtiumServlet < WEBrick::HTTPServlet::AbstractServlet
@@ -19,6 +20,7 @@ module Servirtium
     def do_GET(request, response)
       @responses ||= []
 
+      # TODO cater for JSON and other non-XML types
       response.content_type = 'application/xml'
       response.status = 200
       response.body = default_response
@@ -30,6 +32,8 @@ module Servirtium
 
       response
     end
+
+    # TODO do_POST and more
 
     # rubocop:enable Naming/MethodName
 
@@ -140,6 +144,9 @@ module Servirtium
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
     def build_response_headers_from(response)
+
+      # TODO "transpor" in the below?
+
       headers = <<~HEADERS
         ### Response headers recorded for playback:
 
@@ -165,7 +172,8 @@ module Servirtium
 
     def build_response_body_from(response)
       response_body = if response.body.is_a? Hash
-                        Gyoku.xml(response.body, pretty_print: true).gsub(' xsi:nil="true"', '')
+                        Gyoku.xml(response.body, pretty_print: Servirtium.pretty_print).gsub(' xsi:nil="true"', '')
+                        # TODO other types? XML, TXT?
                       else
                         response.body
                       end

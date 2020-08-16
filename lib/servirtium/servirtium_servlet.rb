@@ -88,7 +88,7 @@ module Servirtium
 
     def build_recording(request)
       response = make_request(request)
-      recording = <<~RECORDING
+      <<~RECORDING
         #{build_interaction_from request}
 
         #{build_request_headers_from request}
@@ -99,13 +99,9 @@ module Servirtium
 
         #{build_response_body_from response}
       RECORDING
-      recording
     end
 
     def make_request(request)
-
-      method_name = request.request_method.gsub(/-/, "_").downcase
-
       url = Servirtium.domain
       connection = Faraday.new url do |conn|
         conn.response :xml, content_type: /\bxml$/
@@ -119,7 +115,7 @@ module Servirtium
     end
 
     def build_request_headers_from(request)
-      headers = <<~HEADERS
+      <<~HEADERS
         ### Request headers recorded for playback:
 
         ```
@@ -130,11 +126,10 @@ module Servirtium
         Connection: #{request.header['connection']}
         ```
       HEADERS
-      headers
     end
 
     def build_request_body
-      body = <<~BODY
+      <<~BODY
         ### Request body recorded for playback ():
 
         ```
@@ -142,16 +137,14 @@ module Servirtium
 
         ```
       BODY
-      body
     end
 
     # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
     def build_response_headers_from(response)
 
       # TODO "transpor" in the below?
 
-      headers = <<~HEADERS
+      <<~HEADERS
         ### Response headers recorded for playback:
 
         ```
@@ -168,10 +161,8 @@ module Servirtium
         Transfer-Encoding: #{response.headers['transfer-encoding']}
         ```
       HEADERS
-      headers
     end
 
-    # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/AbcSize
 
     def build_response_body_from(response)
@@ -182,14 +173,13 @@ module Servirtium
                         response.body
                       end
 
-      body = <<~BODY
+      <<~BODY
         ### Response body recorded for playback (200: application/xml):
 
         ```
         #{response_body}
         ```
       BODY
-      body
     end
   end
 end

@@ -10,5 +10,8 @@
 
 Gemfile.lock
 
+# locally built gems
+*.gem
+
 # rspec failure tracking
 .rspec_status

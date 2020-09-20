@@ -24,7 +24,9 @@ gem 'servirtium', git: 'git@github.com:servirtium/servirtium-ruby.git'
 
 And then execute:
 
-    $ bundle install
+```
+$ bundle install
+```
 
 ## Design goals 
 

@@ -9,23 +9,23 @@ from selenium.webdriver.support import expected_conditions as EC
 import subprocess
 import time
 
-rake_process = None
+ruby_process = None
 todoSuiteUrl = "https://servirtium.github.io/compatibility-suite/index.html"
 
 if len(sys.argv) > 1:
    if sys.argv[1] == "record":
-       # TODO check that node process is already started.
+       # TODO check that ruby process is already started.
        url = "http://localhost:61417"
-       rake_process = subprocess.Popen(["rake", "spec/todobackend_compatibility_test.rb", "record"])
+       ruby_process = subprocess.Popen(["ruby", "todobackend_compatibility_test.rb", "record"])
    elif sys.argv[1] == "playback":
        url = "http://localhost:61417"
-       rake_process = subprocess.Popen(["rake", "spec/todobackend_compatibility_test.rb", "playback"])
+       ruby_process = subprocess.Popen(["ruby", "todobackend_compatibility_test.rb", "playback"])
    elif sys.argv[1] == "direct":
        print("showing reference Sinatra app online without Servirtium in the middle")
        todoSuiteUrl = "https://www.todobackend.com/specs/index.html"
        url = "https://todo-backend-sinatra.herokuapp.com"
    else:
-       print("Second arg should be record or playback")
+       print("Second arg should be record, playback or direct")
        exit(10)
 else:
    print("record/playback/direct argument needed")
@@ -54,10 +54,10 @@ except TimeoutException as ex:
 
 print("mode: " + sys.argv[1])
 
-if rake_process is not None:
-    print("Killing Rake")
-    os.killpg(os.getpgid(rake_process.pid), signal.SIGTERM)
-    rake_process.kill()
+if ruby_process is not None:
+    print("Killing Ruby")
+    os.killpg(os.getpgid(ruby_process.pid), signal.SIGTERM)
+    ruby_process.kill()
 
 print("Closing Selenium")
 driver.quit()

@@ -15,4 +15,4 @@ Servirtium::DemoServer.new 61417
 # TODO 4) https://todo-backend-sinatra.herokuapp.com to http://localhost:61417 on the way back
 # TODO 5) cater for playback too.
 
-
+# For 1-4, see https://github.com/servirtium/servirtium-javascript/blob/master/src/todobackend_compatibility_test.js and https://github.com/servirtium/servirtium-go/blob/master/cmd/todobackend_compatibility.go

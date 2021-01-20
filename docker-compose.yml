@@ -1,0 +1,6 @@
+version: '2'
+
+services:
+  test_container:
+    build: .
+    image: servirtium-ruby-standalone-server
